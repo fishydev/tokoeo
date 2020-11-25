@@ -1,16 +1,25 @@
 <template>
   <div class="home">
-    <v-app-bar color="primary" absolute>
-      <p class="h3">TokoEO</p>
+    <v-app-bar color="#222831" absolute>
+      <v-img
+        src="../assets/logo-bw.png"
+        max-height="50px"
+        max-width="75px"
+        contain
+      ></v-img>
       <v-spacer></v-spacer>
-      <v-btn class="mx-4" depressed @click="loginCard()">Login</v-btn>
-      <v-btn depressed @click="registerCard()">Register</v-btn>
-    </v-app-bar>
-    <v-img src="https://picsum.photos/1920/1080" height="80vh"></v-img>
-    <v-overlay :value="loginOverlay" :dark="false">
-      <v-card class="pa-0">
-        <v-row class="pa-0 ma-0">
-          <v-col class="pa-8">
+      <div class="loginButton">
+        <v-btn class="loginButton" text @click="loginCard" color="#dddddd">Login</v-btn>
+      </div>
+      <div class="loginCard">
+        <v-slide-y-transition>
+          <v-card class="pa-4" width="25vw" v-show="loginOverlay">
+            <v-row>
+              <v-spacer></v-spacer>
+              <v-btn class="pa-0" icon text height="20px" @click="loginCard()">
+                <v-icon>mdi-close</v-icon>
+              </v-btn>
+            </v-row>
             <v-form align="center">
               <v-text-field
                 label="Email"
@@ -22,33 +31,22 @@
                 required
                 v-model="login.password"
               ></v-text-field>
-              <v-btn type="submit">Login</v-btn>
             </v-form>
-          </v-col>
-          <v-col class="pa-0 ma-0 d-none d-lg-block">
-            <v-img
-              class="rounded-tr rounded-br"
-              src="https://picsum.photos/1920/1080"
-              height="300px"
-              max-width="245px"
-            ></v-img>
-            <v-btn
-              color="white"
-              icon
-              right
-              absolute
-              top
-              text
-              @click="loginCard()"
+            <v-btn class="float-right" @click="submitLogin()">Login</v-btn>
+            <p
+              class="create-account subtitle-2 text-decoration-underline"
+              @click="registerCard()"
             >
-              <v-icon>mdi-close</v-icon>
-            </v-btn>
-          </v-col>
-        </v-row>
-      </v-card>
-    </v-overlay>
+              Belum punya akun? Klik disini
+            </p>
+          </v-card>
+        </v-slide-y-transition>
+      </div>
+      <v-btn depressed outlined text @click="registerCard()" color="#dddddd">Register</v-btn>
+    </v-app-bar>
+    <v-img src="https://picsum.photos/1920/1080" height="100vh"></v-img>
     <v-overlay :value="registerOverlay" :dark="false">
-      <v-card class="pa-8">
+      <v-card class="pa-8" v-show="registerOverlay">
         <v-form align="center">
           <v-spacer></v-spacer>
           <v-btn icon absolute top right text @click="registerCard()">
@@ -68,9 +66,11 @@
         </v-form>
       </v-card>
     </v-overlay>
-    <v-snackbar class="pr-4" v-model="error.isError" bottom color="red">
+    <v-snackbar class="pr-0" v-model="error.isError" bottom color="red">
       {{ error.message }}
-      <v-icon class="float-right">mdi-close</v-icon>
+      <v-btn class="float-right" icon @click="error.isError = false">
+        <v-icon>mdi-close</v-icon>
+      </v-btn>
     </v-snackbar>
   </div>
 </template>
@@ -105,10 +105,12 @@ export default {
   methods: {
     loginCard() {
       this.loginOverlay = !this.loginOverlay;
+      this.registerOverlay = false;
     },
 
     registerCard() {
       this.registerOverlay = !this.registerOverlay;
+      this.loginOverlay = false;
     },
 
     submitRegister() {
@@ -119,10 +121,26 @@ export default {
           this.register.password
         )
         .catch(err => {
-          this.error.message = err.message;
-          this.error.isError = true;
-          console.log(err.message);
+          this.showError(err);
         });
+    },
+
+    submitLogin() {
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.login.email, this.login.password)
+        .then(user => {
+          localStorage.setItem("IdToken", user.idToken);
+          this.$router.push({ name: "Dashboard" });
+        })
+        .catch(err => {
+          this.showError(err);
+        });
+    },
+
+    showError(err) {
+      this.error.message = err.message;
+      this.error.isError = true;
     }
   },
   name: "Home",
