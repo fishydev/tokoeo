@@ -13,7 +13,7 @@
       </div>
       <div class="loginCard">
         <v-slide-y-transition>
-          <v-card class="pa-4" width="25vw" v-show="loginOverlay">
+          <v-card class="pa-4 pb-8" width="25vw" v-show="loginOverlay">
             <v-row>
               <v-spacer></v-spacer>
               <v-btn class="pa-0" icon text height="20px" @click="loginCard()">
@@ -33,12 +33,12 @@
               ></v-text-field>
             </v-form>
             <v-btn class="float-right" @click="submitLogin()">Login</v-btn>
-            <p
+            <a
               class="create-account subtitle-2 text-decoration-underline"
               @click="registerCard()"
             >
               Belum punya akun? Klik disini
-            </p>
+            </a>
           </v-card>
         </v-slide-y-transition>
       </div>
