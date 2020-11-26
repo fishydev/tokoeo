@@ -9,7 +9,9 @@
       ></v-img>
       <v-spacer></v-spacer>
       <div class="loginButton">
-        <v-btn class="loginButton" text @click="loginCard" color="#dddddd">Login</v-btn>
+        <v-btn class="loginButton" text @click="loginCard" color="#dddddd"
+          >Login</v-btn
+        >
       </div>
       <div class="loginCard">
         <v-slide-y-transition>
@@ -28,8 +30,11 @@
               ></v-text-field>
               <v-text-field
                 label="Password"
+                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="showPassword ? 'text' : 'password'"
                 required
                 v-model="login.password"
+                @click:append="showPassword = !showPassword"
               ></v-text-field>
             </v-form>
             <v-btn class="float-right" @click="submitLogin()">Login</v-btn>
@@ -42,7 +47,9 @@
           </v-card>
         </v-slide-y-transition>
       </div>
-      <v-btn depressed outlined text @click="registerCard()" color="#dddddd">Register</v-btn>
+      <v-btn depressed outlined text @click="registerCard()" color="#dddddd"
+        >Register</v-btn
+      >
     </v-app-bar>
     <v-img src="https://picsum.photos/1920/1080" height="100vh"></v-img>
     <v-overlay :value="registerOverlay" :dark="false">
@@ -59,8 +66,11 @@
           ></v-text-field>
           <v-text-field
             label="Password"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="showPassword ? 'text' : 'password'"
             required
             v-model="register.password"
+            @click:append="showPassword = !showPassword"
           ></v-text-field>
           <v-btn @click="submitRegister">Register</v-btn>
         </v-form>
@@ -87,6 +97,7 @@ export default {
     return {
       loginOverlay: false,
       registerOverlay: false,
+      showPassword: false,
       login: {
         email: "",
         password: ""
