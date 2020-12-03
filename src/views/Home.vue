@@ -52,30 +52,70 @@
       >
     </v-app-bar>
     <v-img src="https://picsum.photos/1920/1080" height="100vh"></v-img>
-    <v-overlay :value="registerOverlay" :dark="false">
-      <v-card class="pa-8" v-show="registerOverlay">
-        <v-form align="center">
-          <v-spacer></v-spacer>
-          <v-btn icon absolute top right text @click="registerCard()">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-          <v-text-field
-            label="Email"
-            required
-            v-model="register.email"
-          ></v-text-field>
-          <v-text-field
-            label="Password"
-            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-            :type="showPassword ? 'text' : 'password'"
-            required
-            v-model="register.password"
-            @click:append="showPassword = !showPassword"
-          ></v-text-field>
-          <v-btn @click="submitRegister">Register</v-btn>
-        </v-form>
-      </v-card>
-    </v-overlay>
+    <div class="register-overlay">
+      <v-overlay :value="registerOverlay" :dark="false">
+        <div class="register-container">
+          <v-container fluid>
+            <v-card v-show="registerOverlay">
+              <v-app-bar flat color="#222831">
+                <v-row> 
+                  <v-img
+                  class="register-logo"
+                  src="../assets/logo-bw.png"
+                  max-height="50px"
+                  max-width="75px"
+                  contain
+                  ></v-img>
+                  <v-btn class="close-button" color="#dddddd" icon absolute top right text @click="registerCard()">
+                    <v-icon>mdi-close</v-icon>
+                  </v-btn>
+                </v-row>
+              </v-app-bar>
+              <v-row class="main-section pa-8">
+                <v-col class="form-section" cols="12" md="6">
+                  <v-form align="center">
+                    <v-text-field
+                      label="Full Name"
+                      required
+                      v-model="register.name"
+                      prepend-icon="mdi-account"
+                    ></v-text-field>
+                    <v-text-field
+                      label="Email"
+                      required
+                      v-model="register.email"
+                      prepend-icon="mdi-email"
+                    ></v-text-field>
+                    <v-text-field
+                      label="Password"
+                      :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                      :type="showPassword ? 'text' : 'password'"
+                      required
+                      v-model="register.password"
+                      @click:append="showPassword = !showPassword"
+                      prepend-icon="mdi-lock"
+                    ></v-text-field>
+                    <div class="register-button">
+                      <v-btn class="white--text" color="#222831" @click="submitRegister">Register</v-btn>
+                    </div>
+                  </v-form>
+                </v-col>
+                <v-col class="image-section" cols="12" md="6" align="center"> 
+                  <v-img
+                    lazy-src="https://picsum.photos/id/11/10/6"
+                    max-width="344"
+                    max-height="480"
+                    src="https://picsum.photos/1920/1080"
+                    position="center"
+                    class="pa-auto ma-auto"
+                  ></v-img>
+                </v-col>
+              </v-row>
+            </v-card>
+          </v-container>
+        </div>
+      </v-overlay>
+    </div>
     <v-snackbar class="pr-0" v-model="error.isError" bottom color="red">
       {{ error.message }}
       <v-btn class="float-right" icon @click="error.isError = false">
@@ -103,6 +143,7 @@ export default {
         password: ""
       },
       register: {
+        name: "",
         email: "",
         password: ""
       },
@@ -128,6 +169,7 @@ export default {
       firebase
         .auth()
         .createUserWithEmailAndPassword(
+          this.register.name,
           this.register.email,
           this.register.password
         )
