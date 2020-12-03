@@ -15,7 +15,7 @@
       </div>
       <div class="loginCard">
         <v-slide-y-transition>
-          <v-card class="pa-4 pb-8" width="25vw" v-show="loginOverlay">
+          <v-card class="pa-4 pb-8" width="430" v-show="loginOverlay">
             <v-row>
               <v-spacer></v-spacer>
               <v-btn class="pa-0" icon text height="20px" @click="loginCard()">
@@ -44,6 +44,7 @@
             >
               Belum punya akun? Klik disini
             </a>
+            <v-spacer></v-spacer>
           </v-card>
         </v-slide-y-transition>
       </div>
