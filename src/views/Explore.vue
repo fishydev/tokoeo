@@ -7,7 +7,11 @@
         <v-col cols="9">
           <div class="d-flex flex-wrap">
             <v-card class="ma-3 pb-0" v-for="n in 8" :key="n">
-              <v-img src="https://cdn.vuetifyjs.com/images/cards/plane.jpg" width="225px" height="150px"></v-img>
+              <v-img
+                src="https://cdn.vuetifyjs.com/images/cards/plane.jpg"
+                width="225px"
+                height="150px"
+              ></v-img>
               <v-card-title>Lorem Ipsum</v-card-title>
               <v-card-text class="pb-0">
                 <p class="subtitle-1">Lorem Ipsum</p>
@@ -25,9 +29,9 @@
 import Navbar from "../components/Navbar";
 
 export default {
-  data: () => {
+  data: () => ({
     //
-  },
+  }),
   components: {
     Navbar
   }

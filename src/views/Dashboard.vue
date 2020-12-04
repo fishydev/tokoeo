@@ -19,9 +19,10 @@
       <v-col cols="6">
         <div class="d-flex flex-column">
           <v-card class="mb-4 pa-4">
-            <p class="display-1">Your Order</p>
+            <p class="display-1">Your Events</p>
+            <v-spacer></v-spacer>
             <v-card
-              class="pa-2 my-2"
+              class="pa-2 my-4"
               v-for="order in orders"
               :key="order.text"
               color="#30475e"
@@ -32,6 +33,24 @@
                 <v-btn right color="#f05454">Cancel</v-btn>
               </div>
             </v-card>
+            <div class="d-flex justify-end">
+              <v-tooltip left transition="scroll-x-reverse-transition">
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    right
+                    fab
+                    color="#222831"
+                    small
+                    v-on="on"
+                    v-bind="attrs"
+                    @click="toPage('Create Event')"
+                  >
+                    <v-icon>mdi-plus</v-icon>
+                  </v-btn>
+                </template>
+                <span>Buat Event Plan Baru</span>
+              </v-tooltip>
+            </div>
           </v-card>
           <v-card class="pa-4">
             <p class="display-1">History</p>
@@ -61,6 +80,15 @@ export default {
     orders: [{ text: "Lorem Ipsum" }, { text: "Dolor Sit Amet" }],
     histories: [{ text: "Lorem Ipsum" }, { text: "Dolor Sit Amet" }]
   }),
+  methods: {
+    toPage(page) {
+      if (page !== this.$route.name) {
+        this.$router.push({ name: page });
+      } else {
+        this.$forceUpdate();
+      }
+    }
+  },
   name: "Dashboard",
   components: {
     Navbar

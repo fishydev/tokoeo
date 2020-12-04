@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Dashboard from "../views/Dashboard.vue";
 import Explore from "../views/Explore.vue";
+import EventCreate from "../views/Event/EventCreate.vue";
 
 Vue.use(VueRouter);
 
@@ -30,6 +31,11 @@ const routes = [
     path: "/explore",
     name: "Explore",
     component: Explore
+  },
+  {
+    path: "/create-event",
+    name: "Create Event",
+    component: EventCreate
   }
 ];
 

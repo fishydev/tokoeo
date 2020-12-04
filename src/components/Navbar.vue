@@ -13,19 +13,26 @@
         <v-col cols="6">
           <div class="d-flex justify-center">
             <v-btn text depressed color="#dddddd" large>Categories</v-btn>
-            <v-btn text depressed color="#dddddd" large>Explore</v-btn>
+            <v-btn
+              text
+              depressed
+              color="#dddddd"
+              large
+              @click="toPage('explore')"
+              >Explore</v-btn
+            >
             <v-btn text depressed color="#dddddd" large>Vendor</v-btn>
           </div>
         </v-col>
         <v-col cols="3">
           <div class="d-flex justify-end">
-            <v-btn icon flat color="#dddddd">
+            <v-btn icon text color="#dddddd">
               <v-icon>mdi-cart</v-icon>
             </v-btn>
-            <v-btn icon flat color="#dddddd">
+            <v-btn icon text color="#dddddd" @click="toPage('dashboard')">
               <v-icon>mdi-account-circle</v-icon>
             </v-btn>
-            <v-btn icon flat color="#dddddd">
+            <v-btn icon text color="#dddddd">
               <v-icon>mdi-magnify</v-icon>
             </v-btn>
           </div>
@@ -38,6 +45,15 @@
 <script>
 export default {
   name: "Navbar",
+  methods: {
+    toPage(page) {
+      if (page !== this.$route.name.toLowerCase()) {
+        this.$router.push(`/${page}`);
+      } else {
+        this.$forceUpdate();
+      }
+    }
+  },
   components: {
     //
   }
