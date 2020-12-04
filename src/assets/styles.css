@@ -19,3 +19,15 @@
 .event-card-header {
   color: white;
 }
+.register-logo {
+  margin: 10px;
+}
+
+.close-button {
+  float: right;
+}
+
+.register-image {
+  margin: 0 auto;
+}
+
