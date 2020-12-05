@@ -59,15 +59,24 @@
           <v-container fluid>
             <v-card v-show="registerOverlay">
               <v-app-bar flat color="#222831">
-                <v-row> 
+                <v-row>
                   <v-img
-                  class="register-logo"
-                  src="../assets/logo-bw.png"
-                  max-height="50px"
-                  max-width="75px"
-                  contain
+                    class="register-logo"
+                    src="../assets/logo-bw.png"
+                    max-height="50px"
+                    max-width="75px"
+                    contain
                   ></v-img>
-                  <v-btn class="close-button" color="#dddddd" icon absolute top right text @click="registerCard()">
+                  <v-btn
+                    class="close-button"
+                    color="#dddddd"
+                    icon
+                    absolute
+                    top
+                    right
+                    text
+                    @click="registerCard()"
+                  >
                     <v-icon>mdi-close</v-icon>
                   </v-btn>
                 </v-row>
@@ -97,11 +106,16 @@
                       prepend-icon="mdi-lock"
                     ></v-text-field>
                     <div class="register-button">
-                      <v-btn class="white--text" color="#222831" @click="submitRegister">Register</v-btn>
+                      <v-btn
+                        class="white--text"
+                        color="#222831"
+                        @click="submitRegister()"
+                        >Register</v-btn
+                      >
                     </div>
                   </v-form>
                 </v-col>
-                <v-col class="image-section" cols="12" md="6" align="center"> 
+                <v-col class="image-section" cols="12" md="6" align="center">
                   <v-img
                     lazy-src="https://picsum.photos/id/11/10/6"
                     max-width="344"
@@ -132,6 +146,9 @@
 
 <script>
 import firebase from "firebase";
+require("firebase/firestore");
+
+var db = firebase.firestore();
 
 export default {
   data() {
@@ -170,10 +187,18 @@ export default {
       firebase
         .auth()
         .createUserWithEmailAndPassword(
-          this.register.name,
           this.register.email,
           this.register.password
         )
+        .then(() => {
+          db.collection("users").add({
+            name: this.register.name,
+            email: this.register.email,
+            createdAt: new Date()
+          });
+
+          this.registerCard();
+        })
         .catch(err => {
           this.showError(err);
         });
@@ -183,8 +208,8 @@ export default {
       firebase
         .auth()
         .signInWithEmailAndPassword(this.login.email, this.login.password)
-        .then(user => {
-          localStorage.setItem("IdToken", user.idToken);
+        .then(() => {
+          localStorage.setItem("user", this.login.email);
           this.$router.push({ name: "Dashboard" });
         })
         .catch(err => {
