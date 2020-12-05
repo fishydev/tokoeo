@@ -31,3 +31,6 @@
   margin: 0 auto;
 }
 
+.product-card {
+  cursor: pointer;
+}
