@@ -1,3 +1,4 @@
+/* Home Section */
 .loginButton {
   position: relative;
 }
@@ -28,3 +29,53 @@
   margin: 0 auto;
 }
 
+/*Product Detail Section*/
+.product-detail { 
+  background-color: #dddddd;
+  height: auto;
+  width: auto;
+}
+
+.title-section {
+  color : #30475E;
+  padding: 12px;
+}
+
+.product-title h1{
+  color : #30475E;
+}
+
+.rating-num {
+  color : #30475E;
+}
+
+.rating-star {
+  display: inline-block;
+}
+
+.product-price p {
+  color: #30475E;
+}
+
+.product-price h1{
+  color: #F05454;
+}
+
+.product-desc p {
+  color: #30475E;
+}
+
+.product-desc h1 {
+  color: #222831;
+}
+.product-act {
+  margin-top: 20px;
+}
+
+.btn-ask {
+  float: left;
+}
+
+.btn-order {
+  float: right;
+}

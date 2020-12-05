@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Dashboard from "../views/Dashboard.vue";
 import Explore from "../views/Explore.vue";
+import ProductDetail from "../views/ProductDetail.vue"
 
 Vue.use(VueRouter);
 
@@ -30,6 +31,11 @@ const routes = [
     path: "/explore",
     name: "Explore",
     component: Explore
+  },
+  {
+    path: "/detail",
+    name: "ProductDetail",
+    component: ProductDetail
   }
 ];
 
