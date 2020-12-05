@@ -3,7 +3,11 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Dashboard from "../views/Dashboard.vue";
 import Explore from "../views/Explore.vue";
-import EventCreate from "../views/Event/EventCreate.vue";
+import EventPage from "../views/Event/EventPage.vue";
+import Test from "../views/Test.vue";
+import VendorDashboard from "../views/Vendor/Dashboard.vue";
+import Categories from "../views/Categories.vue";
+import Vendor from "../views/Vendor.vue";
 
 Vue.use(VueRouter);
 
@@ -33,9 +37,29 @@ const routes = [
     component: Explore
   },
   {
-    path: "/create-event",
-    name: "Create Event",
-    component: EventCreate
+    path: "/event-plan",
+    name: "Event Plan",
+    component: EventPage
+  },
+  {
+    path: "/test",
+    name: "Test",
+    component: Test
+  },
+  {
+    path: "/vendor/dashboard",
+    name: "VendorDashboard",
+    component: VendorDashboard
+  },
+  {
+    path: "/categories",
+    name: "Categories",
+    component: Categories
+  },
+  {
+    path: "/vendor",
+    name: "Vendor",
+    component: Vendor
   }
 ];
 
