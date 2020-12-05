@@ -29,6 +29,7 @@
                   <div class="d-flex justify-center">
                     <v-rating
                       half-increments
+                      readonly
                       v-model="vendor.rating"
                       small
                     ></v-rating>

@@ -26,19 +26,28 @@
                   dense
                   half-increments
                   hover
+                  readonly
                   size="18"
                 ></v-rating>
               </span>
             </div>
             <v-divider class="mt-2"></v-divider>
-            <div class="product-price"> 
+            <div class="product-price">
               <p class="text-subtitle-2">Harga</p>
               <h1 class="text-h5">Rp.100.000,00</h1>
             </div>
             <v-divider class="mt-2"></v-divider>
             <div class="product-desc">
               <p class="text-subtitle-2">Description</p>
-              <h1 class="text-h5 text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h1>
+              <h1 class="text-h5 text-justify">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </h1>
             </div>
             <v-divider class="mt-2"></v-divider>
             <div class="product-act">
@@ -57,7 +66,6 @@
 
 <style lang="css">
 @import "../assets/styles.css";
-
 </style>
 
 <script>
