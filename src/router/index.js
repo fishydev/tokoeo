@@ -8,6 +8,7 @@ import Test from "../views/Test.vue";
 import VendorDashboard from "../views/Vendor/Dashboard.vue";
 import Categories from "../views/Categories.vue";
 import Vendor from "../views/Vendor.vue";
+import ProductDetail from "../views/ProductDetail.vue";
 
 Vue.use(VueRouter);
 
@@ -60,6 +61,11 @@ const routes = [
     path: "/vendor",
     name: "Vendor",
     component: Vendor
+  },
+  {
+    path: "/detail",
+    name: "ProductDetail",
+    component: ProductDetail
   }
 ];
 
