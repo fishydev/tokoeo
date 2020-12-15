@@ -13,14 +13,14 @@
               >
                 <div class="event-card-header">
                   <v-row>
-                    <p class="display-1">Name Event</p>
+                    <p class="display-1">{{ eventData.eventName }}</p>
                   </v-row>
                   <v-row>
                     <v-spacer></v-spacer>
-                    Tanggal
+                    {{ eventData.eventDate }}
                   </v-row>
                   <v-row class="my-4">
-                    <p>Alamat</p>
+                    <p>{{ eventData.eventAddress }}</p>
                     <v-spacer></v-spacer>
                     <v-btn icon color="white">
                       <v-icon>
@@ -110,14 +110,6 @@
               <v-divider></v-divider>
               <div class="pa-4">
                 <p>Catering</p>
-                <div class="d-flex flex-column">
-                  <p class="text-center">Belum ada</p>
-                  <v-card class="pb-4 px-4 mx-auto" tile elevation="0">
-                    <v-btn small fab color="#222831" dark>
-                      <v-icon>mdi-plus</v-icon>
-                    </v-btn>
-                  </v-card>
-                </div>
               </div>
               <v-divider></v-divider>
               <div class="pa-4">
@@ -147,7 +139,7 @@
         </v-col>
       </v-row>
       <v-row justify="center">
-        <v-btn :disabled="!valid" color="warning" @click="submitEvent()">
+        <v-btn :disabled="!valid" color="warning" @click="cancelEvent()">
           <v-icon left>mdi-trash-can</v-icon>
           Hapus Event
         </v-btn>
@@ -158,21 +150,50 @@
 
 <script>
 import Navbar from "../../components/Navbar";
+// import VendorNone from "../../components/VendorNone";
+import firebase from "firebase";
+
+var db = firebase.firestore();
+
 export default {
   data: () => ({
     valid: true,
     rules: {
       required: value => !!value || "Required."
     },
-    eventName: "",
-    eventAddress: "",
-    eventDate: new Date().toISOString().substr(0, 10),
-    dateMenu: false
+    eventData: {}
   }),
   methods: {
-    submitEvent() {
-      this.$refs.formEvent.validate();
+    toPage(page) {
+      if (page !== this.$route.name) {
+        this.$router.push({ name: page });
+      } else {
+        this.$forceUpdate();
+      }
+    },
+
+    getEventData() {
+      db.collection("events")
+        .doc(this.$route.params.eventId)
+        .get()
+        .then(res => {
+          this.eventData = res.data();
+        });
+    },
+
+    cancelEvent() {
+      db.collection("events")
+        .doc(this.$route.params.eventId)
+        .update({
+          completed: true
+        })
+        .then(() => {
+          this.toPage("Dashboard");
+        });
     }
+  },
+  mounted() {
+    this.getEventData();
   },
   components: {
     Navbar

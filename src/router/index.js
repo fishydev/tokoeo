@@ -38,9 +38,15 @@ const routes = [
     component: Explore
   },
   {
-    path: "/event-plan",
+    path: "/event-plan/:eventId",
     name: "Event Plan",
     component: EventPage
+    // children: [
+    //   {
+    //     path: "/:orderType",
+    //     component: Vendor
+    //   }
+    // ]
   },
   {
     path: "/test",

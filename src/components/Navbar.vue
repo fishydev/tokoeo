@@ -31,14 +31,6 @@
               depressed
               color="#dddddd"
               large
-              @click="toPage('Explore')"
-              >Explore</v-btn
-            >
-            <v-btn
-              text
-              depressed
-              color="#dddddd"
-              large
               @click="toPage('Vendor')"
               >Vendor</v-btn
             >
@@ -66,7 +58,6 @@
 export default {
   data: () => ({
     items: [
-      { name: "Explore", value: "Explore" },
       { name: "Categories", value: "Categories" },
       { name: "Vendor", value: "Vendor" }
     ]

@@ -194,7 +194,8 @@ export default {
           db.collection("users").add({
             name: this.register.name,
             email: this.register.email,
-            createdAt: new Date()
+            createdAt: new Date(),
+            isVendor: false
           });
 
           this.registerCard();

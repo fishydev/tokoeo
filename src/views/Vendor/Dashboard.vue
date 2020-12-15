@@ -12,7 +12,8 @@
                 </v-avatar>
               </v-card-title>
               <v-card-subtitle class="mt-4">
-                <p class="display-1 text-center">John Doe</p>
+                <p class="display-1 text-center">{{ userData.name }}</p>
+                <p class="body-1 text-center">{{ vendorData.vendorName }}</p>
               </v-card-subtitle>
             </v-card>
           </div>
@@ -22,30 +23,19 @@
             <v-card class="mb-4 pa-4">
               <p class="display-1">Detail</p>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Maecenas aliquam velit ut congue faucibus. Aliquam finibus lorem
-                quis neque fringilla porta. Maecenas congue dapibus ligula, non
-                tristique diam. Etiam commodo cursus velit. Duis ut sem turpis.
-                Sed ac lorem euismod, venenatis odio ac, porta metus. Quisque
-                lacinia neque ut urna sollicitudin, eu tempus enim efficitur.
-                Nam in lectus nunc. Pellentesque venenatis urna sed elit luctus,
-                non porta quam pretium. Nam sed dignissim diam, eu mattis augue.
-                Mauris dui nunc, elementum non nisi vel, fringilla vehicula
-                urna. Donec pulvinar risus eu leo malesuada fringilla.
-                Suspendisse quis sem rutrum, elementum est ut, feugiat lectus.
-                Vivamus libero sapien, porttitor at justo eget, lobortis auctor
-                dolor. Nam arcu urna, auctor eu viverra vel, tempor nec dolor.
-                Nulla nec auctor orci.
+                {{ vendorData.detail }}
               </p>
             </v-card>
             <v-card class="pa-4">
               <div class="d-flex flex-row justify-space-between">
                 <div>
-                  <p class="display-1">Lokasi</p>
+                  <p class="display-1">Alamat</p>
+                  <p class="subtitle">{{ vendorData.address }}</p>
                 </div>
                 <v-divider vertical></v-divider>
                 <div>
                   <p class="display-1 text-right">Kontak</p>
+                  <p class="subtitle">{{ vendorData.number }}</p>
                 </div>
               </div>
             </v-card>
@@ -55,7 +45,7 @@
     </div>
     <div>
       <v-row justify="center">
-        <p class="display-1">Produk</p>
+        <p class="display-1">Incoming Order</p>
       </v-row>
       <v-row justify="center">
         <v-col cols="10">
@@ -66,10 +56,15 @@
                 width="225px"
                 height="150px"
               ></v-img>
-              <v-card-title>Lorem Ipsum</v-card-title>
+              <v-card-title>Nama Event</v-card-title>
               <v-card-text class="pb-0">
-                <p class="subtitle-1">Lorem Ipsum</p>
-                <p class="subtitle-2 text-right">Rp100.000</p>
+                <p class="subtitle-1">Tanggal Event</p>
+                <div class="d-flex justify-end mb-2">
+                  <v-btn icon><v-icon color="red">mdi-cancel</v-icon></v-btn>
+                  <v-btn icon
+                    ><v-icon color="green">mdi-whatsapp</v-icon></v-btn
+                  >
+                </div>
               </v-card-text>
             </v-card>
           </div>
@@ -81,11 +76,16 @@
 
 <script>
 import Navbar from "../../components/Navbar";
+import firebase from "firebase";
+
+var db = firebase.firestore();
 
 export default {
   data: () => ({
     orders: [{ text: "Lorem Ipsum" }, { text: "Dolor Sit Amet" }],
-    histories: [{ text: "Lorem Ipsum" }, { text: "Dolor Sit Amet" }]
+    histories: [{ text: "Lorem Ipsum" }, { text: "Dolor Sit Amet" }],
+    userData: {},
+    vendorData: {}
   }),
   methods: {
     toPage(page) {
@@ -94,7 +94,34 @@ export default {
       } else {
         this.$forceUpdate();
       }
+    },
+
+    getData() {
+      db.collection("users")
+        .doc(localStorage.getItem("userId"))
+        .get()
+        .then(res => {
+          this.userData = res.data();
+        })
+        .catch(err => {
+          console.log(err.message);
+        });
+
+      db.collection("vendors")
+        .where("userId", "==", localStorage.getItem("userId"))
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            this.vendorData = doc.data();
+          });
+        })
+        .catch(err => {
+          console.log(err.message);
+        });
     }
+  },
+  mounted() {
+    this.getData();
   },
   name: "VendorDashboard",
   components: {
