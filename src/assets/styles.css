@@ -47,6 +47,10 @@
   padding: 12px;
 }
 
+.title-page {
+  display: inline-block;
+}
+
 .product-title h1{
   color : #30475E;
 }
@@ -84,4 +88,9 @@
 
 .btn-order {
   float: right;
+}
+
+.btn-review {
+  float: right;
+  margin: 5px;
 }
