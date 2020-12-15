@@ -4,7 +4,6 @@ import Home from "../views/Home.vue";
 import Dashboard from "../views/Dashboard.vue";
 import Explore from "../views/Explore.vue";
 import EventPage from "../views/Event/EventPage.vue";
-import Test from "../views/Test.vue";
 import VendorDashboard from "../views/Vendor/Dashboard.vue";
 import Categories from "../views/Categories.vue";
 import Vendor from "../views/Vendor.vue";
@@ -47,11 +46,6 @@ const routes = [
     //     component: Vendor
     //   }
     // ]
-  },
-  {
-    path: "/test",
-    name: "Test",
-    component: Test
   },
   {
     path: "/vendor/dashboard",
