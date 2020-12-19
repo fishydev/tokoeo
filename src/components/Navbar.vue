@@ -47,6 +47,9 @@
             <v-btn icon text color="#dddddd">
               <v-icon>mdi-magnify</v-icon>
             </v-btn>
+            <v-btn icon text color="#dddddd" @click="logOut()">
+              <v-icon>mdi-logout</v-icon>
+            </v-btn>
           </div>
         </v-col>
       </v-row>
@@ -70,6 +73,12 @@ export default {
       } else {
         this.$forceUpdate();
       }
+    },
+
+    logOut() {
+      localStorage.clear("user");
+      localStorage.clear("idToken");
+      this.toPage("Home");
     }
   },
   components: {

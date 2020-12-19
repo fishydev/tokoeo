@@ -353,7 +353,7 @@ export default {
           completed: true
         })
         .then(() => {
-          this.forceUpdate();
+          location.reload();
         });
     },
 
@@ -418,7 +418,7 @@ export default {
                 isVendor: true
               })
               .then(() => {
-                console.log("user vendor status updated");
+                // console.log("user vendor status updated");
               });
             console.log("Registered Vendor with id: ", res.id);
             this.toPage("VendorDashboard");

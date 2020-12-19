@@ -3,11 +3,7 @@
     <v-btn @click="overlayReview = !overlayReview">Add Review</v-btn>
     <div class="overlay-review">
       <v-overlay :value="overlayReview">
-        <v-card
-          class="elevation-16 mx-auto"
-          width="460"
-          light
-        >
+        <v-card class="elevation-16 mx-auto" width="460" light>
           <v-card-title class="headline">
             Beri Review Vendor!
           </v-card-title>
@@ -34,10 +30,7 @@
             <v-btn text @click="overlayReview = false" color="red">
               Close
             </v-btn>
-            <v-btn
-              color="primary"
-              text
-            >
+            <v-btn color="primary" text>
               Simpan Review
             </v-btn>
           </v-card-actions>
@@ -48,10 +41,10 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      rating: 4.5,
-      overlayReview: false
-    }),
-  }
+export default {
+  data: () => ({
+    rating: 4.5,
+    overlayReview: false
+  })
+};
 </script>

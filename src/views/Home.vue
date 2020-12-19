@@ -52,7 +52,12 @@
         >Register</v-btn
       >
     </v-app-bar>
-    <v-img src="https://picsum.photos/1920/1080" height="100vh"></v-img>
+    <v-img src="https://picsum.photos/1920/1080" height="100vh">
+      <div class="d-flex flex-column align-center pt-12 mt-12">
+        <v-img src="../assets/logo.png"> </v-img>
+        <p class="display-1">Cari Vendor yang Kamu Butuhkan Untuk Eventmu</p>
+      </div></v-img
+    >
     <div class="register-overlay">
       <v-overlay :value="registerOverlay" :dark="false">
         <div class="register-container">
