@@ -14,7 +14,7 @@
           <v-col cols="12" md="6">
             <div class="product-title">
               <h1 class="text-h4">
-                Product Vendor Title
+                {{ vendorData.vendorName }}
               </h1>
               <span class="rating-num text--lighten-2 caption mr-2">
                 ({{ rating }})
@@ -40,13 +40,7 @@
             <div class="product-desc">
               <p class="text-subtitle-2">Description</p>
               <h1 class="text-lg-h5 text-md-body-1 text-body-1 text-justify">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
+                {{ vendorData.detail }}
               </h1>
             </div>
             <v-divider class="mt-2"></v-divider>
@@ -81,13 +75,40 @@ import Navbar from "../components/Navbar";
 import GalleryProduct from "../components/GalleryProduct";
 import ReviewProduct from "../components/ReviewProduct";
 import ReviewCard from "../components/ReviewCard";
+import firebase from "firebase";
+// import { ValidationProvider } from "vee-validate";
+
+var db = firebase.firestore();
 
 export default {
   data: () => ({
     rating: 4.5,
     price: "Rp.100.000",
-    overlayReview: false
+    overlayReview: false,
+    vendorData: {},
+    reviewData: {}
   }),
+
+  methods: {
+    getVendorData() {
+      db.collection("vendors")
+        .doc(this.$route.params.vendorId)
+        .get()
+        .then(res => {
+          console.log(res.data());
+          this.vendorData = res.data();
+        });
+    },
+
+    getReviewData() {
+      //
+    }
+  },
+
+  mounted() {
+    this.getVendorData();
+  },
+
   components: {
     Navbar,
     GalleryProduct,

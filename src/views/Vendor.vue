@@ -11,7 +11,7 @@
                 class="ma-3 pb-0"
                 v-for="vendor in vendors"
                 :key="vendor.index"
-                @click="toPage('ProductDetail')"
+                @click="toProductDetail(vendor.vendorId)"
               >
                 <v-img
                   src="https://cdn.vuetifyjs.com/images/cards/plane.jpg"
@@ -51,12 +51,11 @@ export default {
     vendors: []
   }),
   methods: {
-    toPage(page) {
-      if (page !== this.$route.name) {
-        this.$router.push({ name: page });
-      } else {
-        this.$forceUpdate();
-      }
+    toProductDetail(vendorId) {
+      this.$router.push({
+        name: "ProductDetail",
+        params: { vendorId: vendorId }
+      });
     },
 
     getVendors() {
@@ -65,6 +64,7 @@ export default {
         .then(res => {
           res.forEach(doc => {
             var vendorData = doc.data();
+            vendorData.vendorId = doc.id;
             this.vendors.push(vendorData);
           });
         });

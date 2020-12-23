@@ -310,6 +310,7 @@ export default {
           querySnapshot.forEach(doc => {
             console.log(doc.data());
             localStorage.setItem("userId", doc.id);
+            localStorage.setItem("userName", doc.data().name);
             this.userData = doc.data();
           });
         });
@@ -322,7 +323,6 @@ export default {
         .get()
         .then(res => {
           res.forEach(doc => {
-            console.log(doc.data());
             var element = doc.data();
             element.eventId = doc.id;
             console.log(element);
@@ -386,12 +386,15 @@ export default {
           })
           .then(res => {
             console.log("Created event with ID: ", res.id);
+            this.$router.push({
+              name: "Event Plan",
+              params: { eventId: res.id }
+            });
             this.createEvent();
           })
           .catch(err => {
             console.error("Error: ", err);
           });
-        this.$router.push({ name: "Event Plan" });
       }
     },
 

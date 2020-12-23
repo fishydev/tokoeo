@@ -63,7 +63,7 @@ const routes = [
     component: Vendor
   },
   {
-    path: "/detail",
+    path: "/detail/:vendorId",
     name: "ProductDetail",
     component: ProductDetail
   }

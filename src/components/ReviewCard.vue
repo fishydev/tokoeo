@@ -10,7 +10,7 @@
           <v-card-text>
             Tulis Review-mu!
             <div class="review-text mt-5">
-              <v-textarea solo></v-textarea>
+              <v-textarea solo v-model="contentReview"></v-textarea>
             </div>
             Beri Bintang!
             <div class="review-rating text-center mt-5">
@@ -30,7 +30,7 @@
             <v-btn text @click="overlayReview = false" color="red">
               Close
             </v-btn>
-            <v-btn color="primary" text>
+            <v-btn color="primary" text @click="submitReview()">
               Simpan Review
             </v-btn>
           </v-card-actions>
@@ -41,10 +41,36 @@
 </template>
 
 <script>
+import firebase from "firebase";
+
+var db = firebase.firestore();
+
 export default {
   data: () => ({
-    rating: 4.5,
-    overlayReview: false
-  })
+    rating: 0,
+    overlayReview: false,
+    contentReview: ""
+  }),
+
+  methods: {
+    submitReview() {
+      db.collection("reviews")
+        .add({
+          userId: localStorage.getItem("userId"),
+          vendorId: this.$route.params.vendorId,
+          userName: localStorage.getItem("userName"),
+          content: this.contentReview,
+          time: new Date(),
+          rating: this.rating
+        })
+        .then(res => {
+          console.log("Created review with ID: ", res.id);
+          location.reload();
+        })
+        .catch(err => {
+          console.error("Error: ", err);
+        });
+    }
+  }
 };
 </script>
